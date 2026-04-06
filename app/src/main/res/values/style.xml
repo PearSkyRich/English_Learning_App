@@ -6,4 +6,16 @@
     <style name="cr8">
         <item name="cornerSize">8dp</item>
     </style>
+    <style name="cr16">
+        <item name="cornerSize">16dp</item>
+    </style>
+    <style name="cr19">
+        <item name="cornerSize">19dp</item>
+    </style>
+    <style name="cr27">
+        <item name="cornerSize">27dp</item>
+    </style>
+    <style name="cr32">
+        <item name="cornerSize">32dp</item>
+    </style>
 </resources>

@@ -18,45 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <LinearLayout
-                android:id="@+id/r8oukysynvj7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingVertical="2dp"
-                android:layout_marginBottom="74dp"
-                android:layout_marginEnd="14dp"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:id="@+id/rka4tp3u2518"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="1dp"
-                    android:layout_marginStart="29dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/r6ugmzevckv6"
-                        android:textColor="#000000"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="9:41"
-                        />
-                </LinearLayout>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    />
-                <ImageView
-                    android:id="@+id/rnvdzst2s4q"
-                    android:layout_width="67dp"
-                    android:layout_height="11dp"
-                    android:src="@android:drawable/star_big_on"
-                    android:scaleType="fitXY"
-                    />
-            </LinearLayout>
+<!--Phần đầu trang-->
             <LinearLayout
                 android:id="@+id/ryoq1j472qap"
                 android:layout_width="match_parent"
@@ -80,6 +42,7 @@
                         android:text="Learn E"
                         />
                 </LinearLayout>
+<!--Phần Thân trang-->
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/ranfc6e5a7b"
@@ -206,6 +169,7 @@
                         android:text="Đăng nhập"
                         />
                 </LinearLayout>
+<!--Phần cuối trang -->
                 <LinearLayout
                     android:id="@+id/rc1da4nh0tr"
                     android:layout_width="match_parent"
