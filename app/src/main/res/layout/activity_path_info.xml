@@ -190,7 +190,9 @@
                     android:divider="@android:color/transparent"
                     android:dividerHeight="12dp"
                     android:nestedScrollingEnabled="true"
-                    android:scrollbars="none" />
+                    android:scrollbars="none"
+                    tools:listitem="@layout/item_row_lv1"
+                    tools:itemCount="5"/>
 
             </LinearLayout>
         </LinearLayout>

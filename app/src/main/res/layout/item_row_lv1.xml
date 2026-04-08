@@ -6,6 +6,7 @@
     android:background="@drawable/pi_cr16bf2f0f0"
     android:paddingVertical="10dp"
     android:paddingHorizontal="16dp"
+    android:layout_marginBottom="16dp"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -29,7 +30,7 @@
         android:textStyle="bold"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Unit 1: Loại từ trong tiếng anh" />
+         />
 
         <TextView
             android:id="@+id/tv_unit_subtitle"
