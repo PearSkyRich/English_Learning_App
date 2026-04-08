@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@drawable/home_cr32b27ae60">
+        android:background="@drawable/cr32"
+        android:backgroundTint="#27ae60">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -132,7 +133,8 @@
                     android:id="@+id/r6umjkvb9six"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/home_cr16bffffff"
+                    android:background="@drawable/cr16"
+                    android:backgroundTint="#BFFFFF"
                     android:paddingVertical="20dp"
                     android:paddingHorizontal="16dp"
                     android:layout_marginBottom="25dp"
@@ -424,7 +426,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:background="@drawable/home_cr19bffffff"
+                    android:background="@drawable/cr19"
                     android:paddingVertical="12dp"
                     android:paddingHorizontal="16dp"
                     android:layout_marginBottom="16dp"
@@ -470,7 +472,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:background="@drawable/home_cr16bffffff"
+                    android:background="@drawable/cr16"
+                    android:backgroundTint="#BFFFFF"
                     android:padding="16dp"
                     android:layout_marginBottom="12dp"
                     android:layout_marginHorizontal="24dp"
@@ -592,7 +595,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:background="@drawable/home_cr16bffffff"
+                        android:background="@drawable/cr16"
+                        android:backgroundTint="#BFFFFF"
                         android:layout_marginHorizontal="24dp"
                         android:orientation="horizontal">
                         <ImageView

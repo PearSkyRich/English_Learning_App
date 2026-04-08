@@ -135,7 +135,7 @@
                 android:id="@+id/rubcgsxo8i6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/pi_cr32bffffff"
+                android:background="@drawable/cr32"
                 android:paddingTop="16dp"
                 android:paddingHorizontal="24dp"
                 android:clipChildren="false"

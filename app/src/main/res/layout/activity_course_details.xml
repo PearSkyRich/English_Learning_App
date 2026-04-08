@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@drawable/pi_cr32bfaf8f8"
+        android:background="@drawable/cr32"
+        android:backgroundTint="#f8f8f8"
         android:fillViewport="true">
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,162 +111,173 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
-                android:id="@+id/rz441c1faleq"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/layout_course_info_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:layout_marginHorizontal="24dp"
                 android:orientation="vertical">
+
                 <ImageView
-                    android:id="@+id/r6th1vwrd68j"
+                    android:id="@+id/iv_course_icon"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginBottom="16dp"
-                    android:src="@android:drawable/star_big_on"
                     android:scaleType="fitXY"
-                    />
+                    tools:src="@android:drawable/star_big_on" />
+
                 <LinearLayout
-                    android:id="@+id/rkd30u7lvxxi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <LinearLayout
-                        android:id="@+id/rjt2gchb1c5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
                         android:orientation="vertical">
+
+                        <!-- Chữ "Khóa học" thường là cố định nên giữ nguyên android:text -->
                         <TextView
-                            android:id="@+id/ros4phgdkxn8"
                             android:textColor="#919191"
                             android:textSize="12sp"
                             android:layout_marginBottom="4dp"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:text="Khóa học"
-                            />
+                            android:text="Khóa học" />
+
+                        <!-- Tên khóa học sẽ lấy từ CSDL -->
                         <TextView
-                            android:id="@+id/rziqx1u85laf"
+                            android:id="@+id/tv_course_title"
                             android:textColor="#000000"
                             android:textSize="24sp"
                             android:textStyle="bold"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:text="Danh từ"
-                            />
+                            tools:text="Danh từ" />
                     </LinearLayout>
+
+                    <!-- Mô tả khóa học sẽ lấy từ CSDL -->
                     <TextView
-                        android:id="@+id/r59niaxu3s53"
+                        android:id="@+id/tv_course_description"
                         android:textColor="#373346"
                         android:textSize="14sp"
                         android:layout_marginBottom="12dp"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
-                        android:layout_weight="1"
-                        android:text="Là một trong các phần ngữ pháp cơ bản nhất mà bất cứ ai học tiếng Anh cũng cần nắm chắc"
-                        />
+                        tools:text="Là một trong các phần ngữ pháp cơ bản nhất mà bất cứ ai học tiếng Anh cũng cần nắm chắc" />
+
                     <LinearLayout
-                        android:id="@+id/r3ihampmu95q"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:layout_marginBottom="12dp"
                         android:orientation="horizontal">
+
                         <LinearLayout
-                            android:id="@+id/rvvswy8drbb"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:layout_marginEnd="16dp"
                             android:orientation="horizontal">
+
                             <ImageView
-                                android:id="@+id/rp99s5z5796o"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:layout_marginEnd="4dp"
                                 android:src="@android:drawable/star_big_on"
-                                android:scaleType="fitXY"
-                                />
+                                android:scaleType="fitXY" />
+
+                            <!-- Số bài học sẽ lấy từ CSDL -->
                             <TextView
-                                android:id="@+id/r80ltjmhaqe3"
+                                android:id="@+id/tv_lesson_count"
                                 android:textColor="#00BD4F"
                                 android:textSize="12sp"
                                 android:layout_height="wrap_content"
                                 android:layout_width="wrap_content"
-                                android:text="16 bài học"
-                                />
+                                tools:text="16 bài học" />
                         </LinearLayout>
+
                         <LinearLayout
-                            android:id="@+id/r2jywycqg4oq"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
+
                             <ImageView
-                                android:id="@+id/r0owmudnxnmu"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:layout_marginEnd="4dp"
                                 android:src="@android:drawable/star_big_on"
-                                android:scaleType="fitXY"
-                                />
+                                android:scaleType="fitXY" />
+
+                            <!-- Thời lượng sẽ lấy từ CSDL -->
                             <TextView
-                                android:id="@+id/rhhdw2ohbm9t"
+                                android:id="@+id/tv_course_duration"
                                 android:textColor="#00BD4F"
                                 android:textSize="12sp"
                                 android:layout_height="wrap_content"
                                 android:layout_width="wrap_content"
-                                android:text="2 giờ"
-                                />
+                                tools:text="2 giờ" />
                         </LinearLayout>
                     </LinearLayout>
+
                     <LinearLayout
-                        android:id="@+id/rrad93n8i2rc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
+                        <!-- Thanh Progress Bar tự chế của bạn -->
                         <LinearLayout
-                            android:id="@+id/rv435gyqesc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/pi_cr50beeedef"
+                            android:background="@drawable/cr50"
+                            android:backgroundTint="#eeedef"
                             android:layout_marginBottom="7dp"
                             android:orientation="vertical">
+
+                            <!-- id này sẽ dùng để tính toán chiều rộng % trong code -->
                             <LinearLayout
-                                android:id="@+id/rahpklzlwmvt"
-                                android:layout_width="95dp"
+                                android:id="@+id/view_progress_fill"
+                                android:layout_width="0dp"
                                 android:layout_height="8dp"
-                                android:background="@drawable/pi_cr19b27ae60"
-                                android:orientation="vertical">
+                                android:background="@drawable/cr19"
+                                android:backgroundTint="#27ae60"
+                                android:orientation="vertical"
+                                tools:layout_width="95dp">
                             </LinearLayout>
                         </LinearLayout>
+
                         <LinearLayout
-                            android:id="@+id/ry7ybuyo3x2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
+
+                            <!-- Phân số hoàn thành (VD: 3/16) -->
                             <TextView
-                                android:id="@+id/rqfcgm0cumce"
+                                android:id="@+id/tv_progress_fraction"
                                 android:textColor="#696674"
                                 android:textSize="12sp"
                                 android:layout_height="wrap_content"
                                 android:layout_width="wrap_content"
-                                android:text="3/16"
-                                />
+                                tools:text="3/16" />
+
                             <View
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
-                                android:layout_weight="1"
-                                />
+                                android:layout_weight="1" />
+
+                            <!-- Phần trăm hoàn thành (VD: 15%) -->
                             <TextView
-                                android:id="@+id/rkyf2bt83vvl"
+                                android:id="@+id/tv_progress_percent"
                                 android:textColor="#696674"
                                 android:textSize="12sp"
                                 android:layout_height="wrap_content"
                                 android:layout_width="wrap_content"
-                                android:text="15%"
-                                />
+                                tools:text="15%" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -275,7 +287,7 @@
                 android:id="@+id/ra6z4ar4dhft"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/pi_cr32bffffff"
+                android:background="@drawable/cr32"
                 android:paddingTop="16dp"
                 android:paddingRight="24dp"
                 android:orientation="vertical">
