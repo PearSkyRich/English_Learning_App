@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFFFFF"
     android:clipChildren="false"
+    android:id="@+id/main"
     android:clipToPadding="false"
     android:orientation="vertical"
     android:layout_width="match_parent"

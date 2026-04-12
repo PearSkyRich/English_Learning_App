@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:id="@+id/main"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/sv_main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/layout_bottom_action"
+        android:background="@drawable/cr32"
+        android:backgroundTint="#f9f7f7"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingVertical="14dp"
+                android:paddingHorizontal="23dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="9:41" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+                <ImageView
+                    android:layout_width="67dp"
+                    android:layout_height="11dp"
+                    android:src="@android:drawable/star_big_on"
+                    android:scaleType="fitXY" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#FAF8F8"
+                android:paddingVertical="16dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/btn_back"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@android:drawable/star_big_on"
+                    android:scaleType="fitXY" />
+                <TextView
+                    android:id="@+id/tv_topic_name"
+                    android:textColor="#040018"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="500+ TOEIC" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="23dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="24dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/iv_main_card_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/cr16"
+                        tools:src="@android:drawable/star_big_on" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/tv_main_card_english"
+                            android:textColor="#373346"
+                            android:textSize="32sp"
+                            android:textStyle="bold"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            tools:text="Earth" />
+                        <TextView
+                            android:id="@+id/tv_main_card_phonetic"
+                            android:textColor="#696674"
+                            android:textSize="16sp"
+                            android:layout_marginTop="4dp"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            tools:text="/ərTH/" />
+                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/btn_card_options"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:padding="8dp"
+                        android:src="@android:drawable/ic_menu_more"
+                        app:tint="#373346"
+                        android:clickable="true"
+                        android:focusable="true" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp"
+                android:layout_marginHorizontal="23dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:textColor="#373346"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Flashcards" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+                <ImageView
+                    android:id="@+id/btn_filter_or_sort"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/star_big_on"
+                    android:scaleType="fitXY" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_vocab_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="23dp"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_flashcard_row"
+                tools:itemCount="5"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/layout_bottom_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:paddingTop="16dp"
+        android:paddingHorizontal="24dp"
+        android:paddingBottom="32dp"
+        android:elevation="8dp">
+
+        <LinearLayout
+            android:id="@+id/btn_learn_flashcard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@drawable/cr50"
+            android:backgroundTint="#55ba5d"
+            android:paddingVertical="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+            <TextView
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Học flashcard" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_bottom_action_lv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:paddingTop="16dp"
+        android:paddingHorizontal="24dp"
+        android:paddingBottom="32dp">
+
+        <LinearLayout
+            android:id="@+id/btn_learn_flashcard_lv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@drawable/cr50"
+            android:backgroundTint="#55ba5d"
+            android:paddingVertical="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+            <TextView
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Học flashcard" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_flashcard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/layout_bottom_action"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="#55BA5D"
+        app:tint="#FFFFFF"
+        app:elevation="6dp"
+        app:borderWidth="0dp"
+        android:contentDescription="Thêm Flashcard" />
+</RelativeLayout>

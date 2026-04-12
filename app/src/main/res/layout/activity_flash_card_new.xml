@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/sv_main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/layout_bottom_action"
+        android:background="@drawable/cr32"
+        android:backgroundTint="#f9f7f7"
+        android:paddingTop="12dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingVertical="14dp"
+                android:paddingHorizontal="23dp"
+                android:orientation="horizontal">
+
+
+            </LinearLayout>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/btn_back"
+                app:shapeAppearanceOverlay="@style/cr32"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="24dp"
+                android:src="@android:drawable/star_big_on"
+                android:scaleType="fitXY"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:orientation="vertical">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/btn_upload_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/cr10"
+                            android:backgroundTint="#ffffff"
+                            android:padding="19dp"
+                            android:layout_marginEnd="12dp"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:id="@+id/iv_preview_image"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@android:drawable/ic_menu_camera"
+                                android:scaleType="fitXY" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingRight="38dp"
+                            android:orientation="vertical">
+                            <TextView
+                                android:textColor="#373346"
+                                android:textSize="14sp"
+                                android:layout_marginBottom="4dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Upload ảnh với dung lượng < 15MB" />
+                            <TextView
+                                android:textColor="#696674"
+                                android:textSize="12sp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Định dạng hỗ trợ: JPG, JPEG, PNG" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/edt_term"
+                        android:inputType="text"
+                        android:hint="Thuật ngữ *"
+                        android:textColor="#373346"
+                        android:textColorHint="#9B99A3"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/cr50"
+                        android:padding="16dp" />
+
+                    <EditText
+                        android:id="@+id/edt_definition"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:gravity="top|start"
+                        android:hint="Định nghĩa *"
+                        android:textColor="#373346"
+                        android:textColorHint="#9B99A3"
+                        android:textSize="14sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/cr50"
+                        android:padding="16dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="32dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/layout_bottom_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:paddingTop="16dp"
+        android:paddingHorizontal="24dp"
+        android:paddingBottom="32dp"
+        android:elevation="8dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/btn_save_flashcard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@drawable/cr50"
+            android:backgroundTint="#55ba5d"
+            android:paddingVertical="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+            <TextView
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thêm Flashcard" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
