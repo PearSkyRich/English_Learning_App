@@ -89,7 +89,7 @@ public class SignUpSurvey extends AppCompatActivity {
             userMap.put("name", name);
             userMap.put("dob", dob);
             userMap.put("gender", selectedGender);
-            userMap.put("target_score", 500); // Thêm trường mục tiêu TOEIC mặc định
+            userMap.put("target_score", 500);
             userMap.put("created_at", System.currentTimeMillis());
 
             // Lưu vào bảng "users" với ID chính là UID của Auth
