@@ -25,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
         btnGoToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Tạo Intent để chuyển từ MainActivity sang Login Activity
-                Intent intent = new Intent(MainActivity.this, SignUp.class);
+                Intent intent = new Intent(MainActivity.this, Home.class);
                 startActivity(intent);
             }
         });

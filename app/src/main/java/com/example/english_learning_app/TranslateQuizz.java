@@ -1,8 +1,6 @@
 package com.example.english_learning_app;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,31 +8,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Home extends AppCompatActivity {
+public class TranslateQuizz extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_home);
-
+        setContentView(R.layout.activity_translate);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });
-
-        // Khai báo và ánh xạ nút Profile ở thanh điều hướng dưới cùng
-        ImageView navProfile = findViewById(R.id.nav_profile);
-
-        // Bắt sự kiện khi bấm vào nút Profile
-        navProfile.setOnClickListener(v -> {
-            // Chuyển sang class Profile
-            Intent intent = new Intent(Home.this, Profile.class);
-            startActivity(intent);
-
-            // Bỏ hiệu ứng chuyển cảnh mặc định để trông giống tab đang chuyển đổi hơn
-            overridePendingTransition(0, 0);
         });
     }
 }

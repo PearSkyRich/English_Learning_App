@@ -13,6 +13,18 @@
         android:theme="@style/Theme.English_Learning_App"
         tools:targetApi="31">
         <activity
+            android:name=".TranslateQuizz"
+            android:exported="false" />
+        <activity
+            android:name=".SpeechSelectionQuizz"
+            android:exported="false" />
+        <activity
+            android:name=".MultiChoiceQuizz"
+            android:exported="false" />
+        <activity
+            android:name=".Profile"
+            android:exported="false" />
+        <activity
             android:name=".SignUpSurvey"
             android:exported="false" />
         <activity
@@ -52,7 +64,7 @@
             android:name=".SignUp"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".SignIn"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
