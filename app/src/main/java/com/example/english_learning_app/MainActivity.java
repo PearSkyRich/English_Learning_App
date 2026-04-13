@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Tạo Intent để chuyển từ MainActivity sang Login Activity
-                Intent intent = new Intent(MainActivity.this, FlashCardLearning.class);
+                Intent intent = new Intent(MainActivity.this, SignUp.class);
                 startActivity(intent);
             }
         });
