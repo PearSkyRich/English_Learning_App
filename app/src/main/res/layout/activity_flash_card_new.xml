@@ -96,7 +96,7 @@
                                 android:layout_marginBottom="4dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Upload ảnh với dung lượng < 15MB" />
+                                android:text="Upload ảnh với dung lượng nhỏ hơn 15MB" />
                             <TextView
                                 android:textColor="#696674"
                                 android:textSize="12sp"
