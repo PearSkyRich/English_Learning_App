@@ -2,32 +2,38 @@ package com.example.english_learning_app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // Đảm bảo tên file layout trùng khớp
 
-        // Ánh xạ nút bấm từ giao diện XML
-        Button btnGoToLogin = findViewById(R.id.btnGoToLogin);
+        // Bạn có thể giữ lại setContentView nếu file activity_main.xml của bạn
+        // đang chứa logo app (để làm màn hình chờ Splash Screen)
+        setContentView(R.layout.activity_main);
 
-        // Bắt sự kiện khi click vào nút
-        btnGoToLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Home.class);
-                startActivity(intent);
-            }
-        });
+        // Khởi tạo Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        // Kiểm tra trạng thái đăng nhập
+        if (currentUser != null) {
+            // Trường hợp 1: Đã đăng nhập -> Nhảy thẳng vào Home
+            Intent intent = new Intent(MainActivity.this, Home.class);
+            startActivity(intent);
+            finish();
+        } else {
+            // Trường hợp 2: Chưa đăng nhập -> Chuyển sang trang SignIn
+            Intent intent = new Intent(MainActivity.this, SignIn.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

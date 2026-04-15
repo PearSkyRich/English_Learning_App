@@ -1,9 +1,14 @@
 package com.example.english_learning_app;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -11,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +29,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +42,8 @@ public class Profile extends AppCompatActivity {
     private TextView tvTabProgress, tvTabAchievements;
     private RecyclerView rvCertificates, rvAchievements;
     private ImageView navHome, navProfile;
-
+    private ImageView ivAvatar;
+    private ActivityResultLauncher<String> imagePickerLauncher;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
@@ -61,7 +71,15 @@ public class Profile extends AppCompatActivity {
 
         // Tải dữ liệu người dùng và danh sách từ Firebase
         loadUserData();
-
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                uri -> {
+                    if (uri != null) {
+                        // Xử lý khi người dùng chọn xong ảnh
+                        handleImageSelected(uri);
+                    }
+                }
+        );
         // Sự kiện Đăng xuất
         btnLogout.setOnClickListener(v -> {
             mAuth.signOut();
@@ -92,6 +110,11 @@ public class Profile extends AppCompatActivity {
         rvAchievements = findViewById(R.id.rv_achievements);
         navHome = findViewById(R.id.nav_home);
         navProfile = findViewById(R.id.nav_profile);
+        ivAvatar = findViewById(R.id.iv_avatar);
+        ivAvatar.setOnClickListener(v -> {
+            // Mở thư viện ảnh để chọn
+            imagePickerLauncher.launch("image/*");
+        });
     }
 
     private void setupRecyclerViews() {
@@ -114,7 +137,34 @@ public class Profile extends AppCompatActivity {
             overridePendingTransition(0, 0);
         });
     }
+    private void handleImageSelected(Uri imageUri) {
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
 
+            // 1. Nén ảnh cực nhỏ
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 150, 150, true);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos); // Chất lượng 70%
+            byte[] imageBytes = baos.toByteArray();
+
+            // 2. Chuyển thành chuỗi Base64
+            String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+            // 3. Hiển thị tạm lên màn hình
+            ivAvatar.setImageBitmap(scaledBitmap);
+
+            // 4. Lưu chuỗi Base64 này vào Firestore
+            FirebaseUser user = mAuth.getCurrentUser();
+            if (user != null) {
+                db.collection("users").document(user.getUid())
+                        .update("avatar_base64", encodedImage)
+                        .addOnSuccessListener(aVoid -> Toast.makeText(Profile.this, "Cập nhật ảnh thành công", Toast.LENGTH_SHORT).show())
+                        .addOnFailureListener(e -> Toast.makeText(Profile.this, "Lỗi lưu ảnh", Toast.LENGTH_SHORT).show());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void loadUserData() {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
@@ -124,7 +174,12 @@ public class Profile extends AppCompatActivity {
                             tvUserName.setText(doc.getString("name"));
                             Long score = doc.getLong("target_score");
                             if (score != null) tvUserScore.setText(String.valueOf(score));
-
+                            String base64Image = doc.getString("avatar_base64");
+                            if (base64Image != null && !base64Image.isEmpty()) {
+                                byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
+                                Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+                                ivAvatar.setImageBitmap(decodedBitmap);
+                            }
                             // Lấy mảng ID từ User
                             List<String> myCertIds = (List<String>) doc.get("earned_certificates");
                             List<String> myAchieveIds = (List<String>) doc.get("earned_achievements");

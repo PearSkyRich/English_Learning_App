@@ -2,57 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:gravity="center_vertical"
+    android:layout_marginBottom="16dp"
     android:background="@drawable/cr16"
     android:backgroundTint="#f2f0f0"
-    android:paddingVertical="10dp"
-    android:paddingHorizontal="16dp"
-    android:layout_marginBottom="16dp"
-    android:orientation="horizontal">
+    android:padding="16dp"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="0dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/iv_expand_arrow"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_unit_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#919191"
+                android:textSize="12sp"
+                android:text="Khóa học" />
+
+            <TextView
+                android:id="@+id/tv_unit_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#040018"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Tên khóa học" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_expand_arrow"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:src="@android:drawable/arrow_down_float" />
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_child_units"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginEnd="16dp"
-        android:layout_gravity="center_vertical" android:gravity="center_vertical"        android:orientation="vertical">
+        android:layout_marginTop="12dp"
+        android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/tv_unit_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            tools:text="Khóa Học" />
-
-        <TextView
-            android:id="@+id/tv_unit_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#040018"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            tools:text="Tiêu đề bài học" />
-
-        <TextView
-            android:id="@+id/tv_unit_subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textColor="#919191"
-            android:textSize="12sp"
-            android:text="Hoàn thành tất cả các khóa học trong đơn vị này"
-            android:visibility="gone" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/iv_unit_icon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@android:drawable/arrow_down_float"
-        android:scaleType="fitXY" />
 </LinearLayout>

@@ -107,6 +107,6 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:scaleType="fitXY"
-            tools:src="@android:drawable/star_big_on" />
+            tools:src="@drawable/unit_expan" />
     </LinearLayout>
 </LinearLayout>

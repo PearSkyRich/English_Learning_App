@@ -28,43 +28,7 @@
             android:layout_marginBottom="16dp"
             android:elevation="24dp"
             android:orientation="vertical">
-            <LinearLayout
-                android:id="@+id/rn883oe16vx"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingVertical="14dp"
-                android:paddingHorizontal="23dp"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:id="@+id/rb2k6x7khq0o"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="1dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/rltk55ux3ifp"
-                        android:textColor="#000000"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="9:41"
-                        />
-                </LinearLayout>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    />
-                <ImageView
-                    android:id="@+id/rivw8orwx2xh"
-                    android:layout_width="67dp"
-                    android:layout_height="11dp"
-                    android:src="@android:drawable/star_big_on"
-                    android:scaleType="fitXY"
-                    />
-            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/rnj7axc2v8ir"
                 android:layout_width="match_parent"
@@ -78,7 +42,7 @@
                     android:id="@+id/rzwxoal9k95"
                     android:layout_width="42dp"
                     android:layout_height="42dp"
-                    android:src="@android:drawable/star_big_on"
+                    android:src="@drawable/turnback"
                     android:scaleType="fitXY"
                     />
                 <TextView
@@ -97,13 +61,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
                 </LinearLayout>
-                <ImageView
-                    android:id="@+id/rt65t62xpxvi"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:src="@android:drawable/star_big_on"
-                    android:scaleType="fitXY"
-                    />
+
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -323,13 +281,7 @@
                             android:background="@drawable/pi_cr22b00bd4f" />
                     </LinearLayout>
 
-                    <TextView
-                        android:textColor="#B9B9B9"
-                        android:textSize="14sp"
-                        android:layout_marginEnd="24dp"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="Mô tả khoá học" />
+
                 </LinearLayout>
 
                 <!-- VÙNG CHỨA DANH SÁCH LEVEL -->
@@ -344,7 +296,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:nestedScrollingEnabled="false"
-                        tools:listitem="@layout/item_row_lv1"
+                        tools:listitem="@layout/item_row_lv2"
                         tools:itemCount="4"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
                     </LinearLayout>

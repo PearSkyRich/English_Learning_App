@@ -124,7 +124,7 @@
                             android:layout_height="48dp"
                             android:layout_marginEnd="16dp"
 
-                            android:src="@android:drawable/star_big_on"
+                            android:src="@drawable/quiz_speaker"
 
                             android:scaleType="fitXY"
                             android:clickable="true"
@@ -133,7 +133,7 @@
                             android:id="@+id/btn_speak_slow"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:src="@android:drawable/star_big_on"
+                            android:src="@drawable/quiz_slow"
                             android:scaleType="fitXY"
                             android:clickable="true"
                             android:focusable="true"/>
