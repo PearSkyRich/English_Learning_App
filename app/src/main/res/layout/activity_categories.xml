@@ -21,8 +21,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +35,7 @@
                     android:layout_height="42dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="16dp"
-                    android:src="@android:drawable/star_big_on"
+                    android:src="@drawable/turnback"
                     android:scaleType="fitXY" />
 
                 <TextView
@@ -46,7 +44,7 @@
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ôn tập lỗi sai" />
+                    android:text="Tất cả Khóa học" />
             </LinearLayout>
 
             <LinearLayout
@@ -63,13 +61,13 @@
                     android:layout_height="24dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="8dp"
-                    android:src="@android:drawable/star_big_on"
+                    android:src="@android:drawable/ic_menu_search"
                     android:scaleType="fitXY" />
 
                 <EditText
                     android:id="@+id/edt_search"
                     android:inputType="text"
-                    android:hint="Tìm kiếm"
+                    android:hint="Tìm kiếm khóa học..."
                     android:background="@null"
                     android:textColor="#696674"
                     android:textSize="14sp"
@@ -80,148 +78,27 @@
                     android:paddingVertical="18dp" />
             </LinearLayout>
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_category_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:layout_marginHorizontal="24dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="8dp"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/tab_all"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:background="@drawable/cr50"
-                        android:backgroundTint="#55ba5d"
-                        android:paddingVertical="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/tv_tab_all_count"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            tools:text="Tất cả (20)" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/tab_vocab"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:background="@drawable/cr50"
-                        android:paddingVertical="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="vertical">
-                        <TextView
-                            android:textColor="#696674"
-                            android:textSize="16sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Từ vựng" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/tab_sentence"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:background="@drawable/cr50"
-                        android:paddingVertical="8dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="vertical">
-                        <TextView
-                            android:textColor="#696674"
-                            android:textSize="16sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Mẫu câu" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/tab_grammar"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:background="@drawable/cr50"
-                        android:paddingVertical="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="vertical">
-                        <TextView
-                            android:textColor="#696674"
-                            android:textSize="16sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Ngữ pháp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/tab_listening"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:background="@drawable/cr50"
-                        android:paddingVertical="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="vertical">
-                        <TextView
-                            android:textColor="#696674"
-                            android:textSize="16sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nghe nói" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical" />
-                </LinearLayout>
-            </LinearLayout>
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_tab_filter" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_flashcards_grid"
+                android:id="@+id/rv_courses_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
+                android:layout_marginHorizontal="24dp"
                 android:nestedScrollingEnabled="false"
                 android:paddingBottom="100dp"
                 android:clipToPadding="false"
-                tools:listitem="@layout/item_flashcard"
-                tools:itemCount="10"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2" />
+                tools:listitem="@layout/item_row_lv1"
+                tools:itemCount="5"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

@@ -54,19 +54,18 @@ public class Home extends AppCompatActivity {
         navHome = findViewById(R.id.nav_home);
         navTest = findViewById(R.id.nav_test);
         navFlashcard = findViewById(R.id.nav_flashcard);
-        // Lưu ý: ID trong file XML của bạn đang viết là nav_categrory (dư chữ r)
         navCategory = findViewById(R.id.nav_categrory);
         navProfile = findViewById(R.id.nav_profile);
         
         // Nút Flashcard
         navFlashcard.setOnClickListener(v -> {
-            startActivity(new Intent(Home.this, FlashCard.class));
+            startActivity(new Intent(Home.this, Collection.class));
             overridePendingTransition(0, 0);
         });
 
         // Nút Category
         navCategory.setOnClickListener(v -> {
-            startActivity(new Intent(Home.this, Collection.class));
+            startActivity(new Intent(Home.this, Categories.class));
             overridePendingTransition(0, 0);
         });
 
