@@ -3,15 +3,19 @@ package com.example.english_learning_app;
 import android.graphics.Color;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import java.util.Locale;
 
 public class FragmentQuizChoice extends Fragment {
 
@@ -20,6 +24,8 @@ public class FragmentQuizChoice extends Fragment {
 
     private TextView tvVocab, tvPhonetic, tvOpt1, tvOpt2, tvOpt3, tvOpt4;
     private LinearLayout btnOpt1, btnOpt2, btnOpt3, btnOpt4, btnCheck;
+    private TextToSpeech tts;
+    private ImageView btnSpeakNormal, btnSpeakSlow;
 
     @Nullable
     @Override
@@ -46,7 +52,14 @@ public class FragmentQuizChoice extends Fragment {
         btnOpt3 = view.findViewById(R.id.btn_option_3);
         btnOpt4 = view.findViewById(R.id.btn_option_4);
         btnCheck = view.findViewById(R.id.btn_check_answer);
+        btnSpeakNormal = view.findViewById(R.id.btn_speak_normal);
+        btnSpeakSlow = view.findViewById(R.id.btn_speak_slow);
 
+        tts = new TextToSpeech(getContext(), status -> {
+            if (status != TextToSpeech.ERROR) {
+                tts.setLanguage(Locale.US); // Đặt ngôn ngữ là tiếng Anh Mỹ
+            }
+        });
         // Đổ dữ liệu
         if (currentQuiz != null) {
             tvVocab.setText(currentQuiz.getWord());
@@ -60,6 +73,11 @@ public class FragmentQuizChoice extends Fragment {
             }
         }
 
+        // Phát âm bình thường (Tốc độ 1.0)
+        btnSpeakNormal.setOnClickListener(v -> speak(1.0f));
+
+        // Phát âm chậm (Tốc độ 0.5)
+        btnSpeakSlow.setOnClickListener(v -> speak(0.5f));
         // Xử lý chọn đáp án
         btnOpt1.setOnClickListener(v -> selectOption(btnOpt1, tvOpt1.getText().toString()));
         btnOpt2.setOnClickListener(v -> selectOption(btnOpt2, tvOpt2.getText().toString()));
@@ -80,7 +98,12 @@ public class FragmentQuizChoice extends Fragment {
 
         return view;
     }
-
+    private void speak(float speed) {
+        if (currentQuiz != null && currentQuiz.getWord() != null) {
+            tts.setSpeechRate(speed); // Cài đặt tốc độ
+            tts.speak(currentQuiz.getWord(), TextToSpeech.QUEUE_FLUSH, null, null);
+        }
+    }
     private void selectOption(LinearLayout btn, String text) {
         // Reset tất cả các nút về màu xanh nhạt mặc định của bạn
         btnOpt1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#e2f2fd")));
@@ -88,11 +111,16 @@ public class FragmentQuizChoice extends Fragment {
         btnOpt3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#e2f2fd")));
         btnOpt4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#e2f2fd")));
 
-        // Chọn nút hiện tại
         btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#55BA5D")));
         selectedAnswer = text;
-
-        // Kích hoạt nút Check
         btnCheck.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#55BA5D")));
+    }
+    @Override
+    public void onDestroy() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
     }
 }

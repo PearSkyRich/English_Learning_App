@@ -85,7 +85,7 @@ public class CourseDetails extends AppCompatActivity {
 
     private void fetchLevels(String parentUnitId, TextView tvCount) {
         db.collection("Levels")
-                .whereEqualTo("unit_id", parentUnitId) // Kiểm tra unit_id trên Firestore là String
+                .whereEqualTo("unit_id", parentUnitId)
                 .orderBy("order", Query.Direction.ASCENDING)
                 .get()
                 .addOnSuccessListener(snapshots -> {

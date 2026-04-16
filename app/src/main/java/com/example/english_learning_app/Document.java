@@ -34,7 +34,6 @@ public class Document extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Thiết lập giao diện tràn viền (EdgeToEdge)
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_document);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -43,13 +42,8 @@ public class Document extends AppCompatActivity {
             return insets;
         });
 
-        // 1. Ánh xạ các thành phần giao diện (UI)
         initViews();
-
-        // 2. Nhận toàn bộ dữ liệu từ LevelAdapter gửi sang (Đã bọc chống Null)
         receiveDataFromIntent();
-
-        // 3. Xử lý sự kiện bấm nút
         setupListeners();
     }
 
@@ -77,7 +71,7 @@ public class Document extends AppCompatActivity {
     private void receiveDataFromIntent() {
         Intent intent = getIntent();
         levelId = intent.getStringExtra("LEVEL_ID");
-        quizIds = intent.getStringArrayListExtra("QUIZ_IDS"); // Nhận mảng ID câu hỏi
+        quizIds = intent.getStringArrayListExtra("QUIZ_IDS");
 
         // Lấy dữ liệu
         String title = intent.getStringExtra("LEVEL_TITLE");
@@ -86,7 +80,7 @@ public class Document extends AppCompatActivity {
         String exEn = intent.getStringExtra("LEVEL_EX_EN");
         String exVi = intent.getStringExtra("LEVEL_EX_VI");
 
-        // ÁO GIÁP CHỐNG NULL: Nếu Firebase thiếu dữ liệu, tự điền chữ mặc định để không bị trắng màn hình
+        // Nếu Firebase thiếu dữ liệu, tự điền chữ mặc định để không bị trắng màn hình
         if (title != null && !title.isEmpty()) {
             tvTitle.setText(title);
         } else {
