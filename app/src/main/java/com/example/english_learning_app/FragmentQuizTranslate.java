@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
+import java.util.Collections;
 import java.util.List;
 
 public class FragmentQuizTranslate extends Fragment {
@@ -46,6 +47,7 @@ public class FragmentQuizTranslate extends Fragment {
             tvQuestionEn.setText(currentQuiz.getQuestion());
 
             List<String> shuffledWords = currentQuiz.getOptions();
+            Collections.shuffle(shuffledWords);
             if (shuffledWords != null) {
                 cgWordBank.removeAllViews(); // Xóa sạch view cũ để tránh trùng lặp
                 for (String word : shuffledWords) {
