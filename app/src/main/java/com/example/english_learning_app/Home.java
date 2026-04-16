@@ -40,7 +40,7 @@ public class Home extends AppCompatActivity {
     }
 
     private void fetchCourses() {
-        db.collection("Courses").get().addOnSuccessListener(snapshots -> {
+        db.collection("Courses").limit(5).get().addOnSuccessListener(snapshots -> {
             courseList.clear();
             for (QueryDocumentSnapshot doc : snapshots) {
                 CourseModel course = doc.toObject(CourseModel.class);
