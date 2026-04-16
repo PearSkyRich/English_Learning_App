@@ -1,6 +1,7 @@
 package com.example.english_learning_app;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -42,6 +43,7 @@ public class Profile extends AppCompatActivity {
     private TextView tvTabProgress, tvTabAchievements;
     private RecyclerView rvCertificates, rvAchievements;
     private ImageView navHome, navProfile;
+    private String selectedGender = "";
     private ImageView ivAvatar;
     private ActivityResultLauncher<String> imagePickerLauncher;
     private FirebaseAuth mAuth;
@@ -258,26 +260,92 @@ public class Profile extends AppCompatActivity {
 
         EditText edtName = view.findViewById(R.id.edt_profile_name);
         EditText edtEmail = view.findViewById(R.id.edt_profile_email);
-        LinearLayout btnUpdate = view.findViewById(R.id.btn_update_profile);
+        EditText edtDob = view.findViewById(R.id.edt_profile_dob);
+        EditText edtTargetScore = view.findViewById(R.id.edt_profile_target_score);
+        EditText edtPassword = view.findViewById(R.id.edt_profile_password);
 
+        LinearLayout btnMale = view.findViewById(R.id.btn_profile_gender_male);
+        LinearLayout btnFemale = view.findViewById(R.id.btn_profile_gender_female);
+        TextView tvMale = view.findViewById(R.id.tv_profile_gender_male);
+        TextView tvFemale = view.findViewById(R.id.tv_profile_gender_female);
+        LinearLayout btnUpdate = view.findViewById(R.id.btn_update_profile);
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             edtEmail.setText(user.getEmail());
             edtEmail.setEnabled(false);
             db.collection("users").document(user.getUid()).get().addOnSuccessListener(doc -> {
                 if (doc.exists()) edtName.setText(doc.getString("name"));
+                if (doc.exists()) {
+                    edtName.setText(doc.getString("name"));
+                    edtDob.setText(doc.getString("dob"));
+                    if (doc.getLong("target_score") != null) {
+                        edtTargetScore.setText(String.valueOf(doc.getLong("target_score")));
+                    }
+
+                    // Hiển thị trạng thái giới tính ban đầu
+                    String gender = doc.getString("gender");
+                    if (gender != null) {
+                        updateGenderUI(gender, btnMale, btnFemale, tvMale, tvFemale);
+                    }
+                }
             });
         }
+        edtDob.setOnClickListener(v -> {
+            java.util.Calendar calendar = java.util.Calendar.getInstance();
+            int year = calendar.get(java.util.Calendar.YEAR);
+            int month = calendar.get(java.util.Calendar.MONTH);
+            int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
 
+            android.app.DatePickerDialog datePicker = new android.app.DatePickerDialog(this, (view1, y, m, d) -> {
+                String date = String.format("%02d/%02d/%d", d, m + 1, y);
+                edtDob.setText(date);
+            }, year, month, day);
+            datePicker.show();
+        });
         btnUpdate.setOnClickListener(v -> {
             String newName = edtName.getText().toString();
-            db.collection("users").document(user.getUid()).update("name", newName)
+            String newDob = edtDob.getText().toString();
+            String scoreStr = edtTargetScore.getText().toString();
+            String newPassword = edtPassword.getText().toString();
+
+            java.util.Map<String, Object> updates = new java.util.HashMap<>();
+            updates.put("name", newName);
+            updates.put("dob", newDob);
+            updates.put("gender", selectedGender);
+            if (!scoreStr.isEmpty()) {
+                updates.put("target_score", Long.parseLong(scoreStr));
+            }
+
+            // Nếu user nhập mật khẩu mới thì đổi mật khẩu Firebase Auth
+            if (!newPassword.isEmpty() && newPassword.length() >= 6) {
+                user.updatePassword(newPassword).addOnSuccessListener(unused ->
+                        Toast.makeText(this, "Đã đổi mật khẩu!", Toast.LENGTH_SHORT).show());
+            }
+
+            db.collection("users").document(user.getUid()).update(updates)
                     .addOnSuccessListener(aVoid -> {
-                        tvUserName.setText(newName);
+                        tvUserName.setText(newName); // Cập nhật tên ở màn hình Profile chính
                         dialog.dismiss();
                         Toast.makeText(this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
                     });
         });
         dialog.show();
+    }
+    private void updateGenderUI(String gender, LinearLayout btnMale, LinearLayout btnFemale, TextView tvMale, TextView tvFemale) {
+        selectedGender = gender;
+        // Reset về màu xám mặc định của bạn (#FAF8F8)
+        btnMale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FAF8F8")));
+        tvMale.setTextColor(Color.parseColor("#504D5D"));
+        btnFemale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FAF8F8")));
+        tvFemale.setTextColor(Color.parseColor("#504D5D"));
+
+        // Nút được chọn sẽ sáng màu xanh (#55BA5D)
+        if (gender.equals("Nam")) {
+            btnMale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#55BA5D")));
+            tvMale.setTextColor(Color.WHITE);
+        } else if (gender.equals("Nữ")) {
+            btnFemale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#55BA5D")));
+            tvFemale.setTextColor(Color.WHITE);
+        }
     }
 }

@@ -118,58 +118,7 @@
                         android:textColorHint="#696674"
                         android:textSize="14sp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Liên kết tài khoản"
-                            android:textColor="#504D5D"
-                            android:textSize="16sp" />
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-                            <LinearLayout
-                                android:id="@+id/btn_social_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="20dp"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:padding="10dp"
-                                android:orientation="vertical">
-                                <ImageView
-                                    android:layout_width="28dp"
-                                    android:layout_height="28dp"
-                                    android:src="@android:drawable/star_big_on"
-                                    android:scaleType="fitXY" />
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/btn_social_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/cr8bf0f0f0"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:padding="10dp"
-                                android:orientation="vertical">
-                                <ImageView
-                                    android:layout_width="28dp"
-                                    android:layout_height="28dp"
-                                    android:src="@android:drawable/star_big_on"
-                                    android:scaleType="fitXY" />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </LinearLayout>
+
                 </LinearLayout>
 
                 <CheckBox

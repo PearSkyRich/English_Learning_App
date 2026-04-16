@@ -152,14 +152,12 @@ public class Categories extends AppCompatActivity {
         navCategory = findViewById(R.id.nav_categrory);
         navProfile = findViewById(R.id.nav_profile);
 
-        // Nút Flashcard
-        navFlashcard.setOnClickListener(v -> {
-            startActivity(new Intent(Categories.this, FlashCard.class));
+        navHome.setOnClickListener(v -> {
+            startActivity(new Intent(Categories.this, Home.class));
             overridePendingTransition(0, 0);
         });
-
-        // Nút Category
-        navCategory.setOnClickListener(v -> {
+        // Nút Flashcard
+        navFlashcard.setOnClickListener(v -> {
             startActivity(new Intent(Categories.this, Collection.class));
             overridePendingTransition(0, 0);
         });
