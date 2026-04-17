@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -189,6 +190,7 @@ public class Profile extends AppCompatActivity {
                         for (DocumentSnapshot d : snapshots) {
                             fullCertList.add(new CertificateModel(d.getId(), d.getString("Name")));
                         }
+                        Log.d("DEBUG_CERT", "Số lượng tải được: " + fullCertList.size());
                         selectTab(isProgressTabSelected);
                     });
         }

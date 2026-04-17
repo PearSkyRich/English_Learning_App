@@ -64,6 +64,11 @@ public class Home extends AppCompatActivity {
             startActivity(new Intent(Home.this, Categories.class));
             overridePendingTransition(0, 0);
         });
+        navTest.setOnClickListener(v -> {
+            startActivity(new Intent(Home.this, Test.class));
+            overridePendingTransition(0, 0);
+        });
+
         // Nút Flashcard
         navFlashcard.setOnClickListener(v -> {
             startActivity(new Intent(Home.this, Collection.class));

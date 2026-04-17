@@ -1,5 +1,7 @@
 package com.example.english_learning_app;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,6 +33,7 @@ import java.util.Map;
 public class Quiz extends AppCompatActivity {
 
     private String levelId;
+    private String certificateId;
     private ArrayList<String> quizIds;
     private List<QuizModel> quizList = new ArrayList<>();
 
@@ -38,13 +41,14 @@ public class Quiz extends AppCompatActivity {
     private int correctAnswers = 0;
 
     private android.view.View viewProgressBar;
-    private int initialProgressBarWidth = 0;
+    private boolean isTestMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_quiz);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -54,12 +58,14 @@ public class Quiz extends AppCompatActivity {
         // 1. Ánh xạ View
         ImageView btnClose = findViewById(R.id.btn_close);
         viewProgressBar = findViewById(R.id.view_progress_bar);
+        btnClose.setOnClickListener(v -> finish());
 
-        btnClose.setOnClickListener(v -> finish()); // Thoát bài thi
-
-        // 2. Nhận dữ liệu từ trang Document
+        // 2. NHẬN DỮ LIỆU TỪ INTENT (Phải lấy đầy đủ isTestMode và certificateId)
         levelId = getIntent().getStringExtra("LEVEL_ID");
         quizIds = getIntent().getStringArrayListExtra("QUIZ_IDS");
+
+        isTestMode = getIntent().getBooleanExtra("IS_TEST_MODE", false);
+        certificateId = getIntent().getStringExtra("CERTIFICATE_ID");
 
         // 3. Tải câu hỏi
         if (quizIds != null && !quizIds.isEmpty()) {
@@ -74,12 +80,10 @@ public class Quiz extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         List<Task<DocumentSnapshot>> tasks = new ArrayList<>();
 
-        // Yêu cầu Firebase tải từng ID một
         for (String id : quizIds) {
             tasks.add(db.collection("Quizzes").document(id).get());
         }
 
-        // Chờ tải XONG TẤT CẢ mới bắt đầu làm bài
         Tasks.whenAllSuccess(tasks).addOnSuccessListener(results -> {
             for (Object result : results) {
                 DocumentSnapshot doc = (DocumentSnapshot) result;
@@ -89,9 +93,7 @@ public class Quiz extends AppCompatActivity {
                     quizList.add(quiz);
                 }
             }
-            Log.d("QuizApp", "Đã tải: " + quizList.size() + " câu");
-            displayQuestion(); // Bắt đầu hiển thị câu đầu tiên
-
+            displayQuestion();
         }).addOnFailureListener(e -> {
             Toast.makeText(this, "Lỗi tải dữ liệu mạng!", Toast.LENGTH_SHORT).show();
         });
@@ -106,24 +108,13 @@ public class Quiz extends AppCompatActivity {
         }
 
         QuizModel currentQuiz = quizList.get(currentQuestionIndex);
-
-        String kind = currentQuiz.getKind();
-        if (kind == null) {
-            Log.e("QuizApp", "CẢNH BÁO: Kind bị null trên Firebase! Đang hiện tạm Multiple Choice để test.");
-            kind = "multiple_choice";
-        }
+        String kind = (currentQuiz.getKind() != null) ? currentQuiz.getKind() : "multiple_choice";
 
         Fragment fragmentToLoad = null;
         switch (kind.trim().toLowerCase()) {
-            case "multiple_choice":
-                fragmentToLoad = new FragmentQuizChoice();
-                break;
-            case "translate":
-                fragmentToLoad = new FragmentQuizTranslate();
-                break;
-            case "speak":
-                fragmentToLoad = new FragmentQuizSpeak();
-                break;
+            case "multiple_choice": fragmentToLoad = new FragmentQuizChoice(); break;
+            case "translate": fragmentToLoad = new FragmentQuizTranslate(); break;
+            case "speak": fragmentToLoad = new FragmentQuizSpeak(); break;
         }
 
         if (fragmentToLoad != null) {
@@ -135,12 +126,12 @@ public class Quiz extends AppCompatActivity {
     }
 
     private void updateProgressBar() {
-        if (viewProgressBar != null) {
+        if (viewProgressBar != null && !quizList.isEmpty()) {
             int screenWidth = getResources().getDisplayMetrics().widthPixels - 100;
-            int progressWidth = (int) (((float) currentQuestionIndex / quizIds.size()) * screenWidth);
+            int progressWidth = (int) (((float) currentQuestionIndex / quizList.size()) * screenWidth);
 
             ViewGroup.LayoutParams params = viewProgressBar.getLayoutParams();
-            params.width = (progressWidth <= 0) ? 20 : progressWidth;
+            params.width = Math.max(20, progressWidth);
             viewProgressBar.setLayoutParams(params);
         }
     }
@@ -148,14 +139,14 @@ public class Quiz extends AppCompatActivity {
     public QuizModel getCurrentQuiz() {
         return quizList.get(currentQuestionIndex);
     }
+
     public void submitAnswer(boolean isCorrect) {
         if (isCorrect) {
             correctAnswers++;
-            Toast.makeText(this, "Chính xác! +1 điểm", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Chính xác! ", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Sai rồi! Cố gắng nhé", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Tiếc quá, sai rồi! ", Toast.LENGTH_SHORT).show();
         }
-
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             currentQuestionIndex++;
             displayQuestion();
@@ -164,22 +155,58 @@ public class Quiz extends AppCompatActivity {
 
     private void finishQuizAndSaveProgress() {
         double percentage = ((double) correctAnswers / quizList.size()) * 100;
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        if (percentage >= 70.0) {
-            // LƯU VÀO FIREBASE
-            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            Map<String, Object> progress = new HashMap<>();
-            progress.put("completed_levels", FieldValue.arrayUnion(levelId));
-
-            FirebaseFirestore.getInstance().collection("UserProgress").document(userId)
-                    .set(progress, SetOptions.merge())
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(this, "Bạn đạt " + (int)percentage + "%! Hoàn thành xuất sắc!", Toast.LENGTH_LONG).show();
-                        finish(); // Đóng quiz, quay về Document (sẽ tự hiện Tích xanh)
-                    });
+        if (isTestMode) {
+            if (percentage >= 80.0) {
+                if (certificateId != null) {
+                    db.collection("users").document(userId)
+                            .update("earned_certificates", FieldValue.arrayUnion(certificateId))
+                            .addOnSuccessListener(aVoid -> showSuccessDialog(percentage))
+                            .addOnFailureListener(e -> {
+                                Log.e("QuizSave", "Lỗi lưu: " + e.getMessage());
+                                Toast.makeText(this, "Lỗi lưu chứng chỉ!", Toast.LENGTH_SHORT).show();
+                            });
+                } else {
+                    Log.e("QuizSave", "Lỗi: certificateId bị null!");
+                    finish();
+                }
+            } else {
+                showFailDialog(percentage, 80);
+            }
         } else {
-            Toast.makeText(this, "Bạn chỉ đạt " + (int)percentage + "%. Cần 70% để qua bài. Thử lại nhé!", Toast.LENGTH_LONG).show();
-            finish(); // Thất bại, văng ra ngoài không lưu kết quả
+            if (percentage >= 70.0) {
+                Map<String, Object> progress = new HashMap<>();
+                progress.put("completed_levels", FieldValue.arrayUnion(levelId));
+
+                db.collection("UserProgress").document(userId)
+                        .set(progress, SetOptions.merge())
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(this, "Hoàn thành! " + (int)percentage + "%", Toast.LENGTH_LONG).show();
+                            finish();
+                        });
+            } else {
+                showFailDialog(percentage, 70);
+            }
         }
+    }
+
+    private void showSuccessDialog(double score) {
+        new AlertDialog.Builder(this)
+                .setTitle("Chúc mừng bạn")
+                .setMessage("Bạn đạt " + (int)score + "%. Chứng chỉ đã được lưu vào Profile của bạn!")
+                .setCancelable(false)
+                .setPositiveButton("Tuyệt vời", (dialog, which) -> finish())
+                .show();
+    }
+
+    private void showFailDialog(double score, int required) {
+        new AlertDialog.Builder(this)
+                .setTitle("Chưa đạt rồi!")
+                .setMessage("Bạn đạt " + (int)score + "%. Cần ít nhất " + required + "% để qua bài.")
+                .setCancelable(false)
+                .setPositiveButton("Thử lại", (dialog, which) -> finish())
+                .show();
     }
 }

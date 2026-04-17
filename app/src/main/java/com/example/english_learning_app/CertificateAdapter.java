@@ -29,7 +29,7 @@ public class CertificateAdapter extends RecyclerView.Adapter<CertificateAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CertificateModel model = listData.get(position);
-        holder.tvName.setText(model.getName()); // Đổ chữ từ Model vào Giao diện
+        holder.tvName.setText(model.getName());
     }
 
     @Override
