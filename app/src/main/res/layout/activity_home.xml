@@ -243,7 +243,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
             <TextView
-                android:id="@+id/btn_view_all_journey"
+                android:id="@+id/btn_view_all_courses"
                 android:textColor="#7F7D94"
                 android:textSize="14sp"
                 android:layout_width="wrap_content"

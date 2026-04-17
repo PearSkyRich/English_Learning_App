@@ -37,8 +37,8 @@ public class Quiz extends AppCompatActivity {
     private int currentQuestionIndex = 0;
     private int correctAnswers = 0;
 
-    private android.view.View viewProgressBar; // Thanh tiến trình màu xanh
-    private int initialProgressBarWidth = 0;   // Chiều rộng ban đầu
+    private android.view.View viewProgressBar;
+    private int initialProgressBarWidth = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,8 +107,6 @@ public class Quiz extends AppCompatActivity {
 
         QuizModel currentQuiz = quizList.get(currentQuestionIndex);
 
-        // THÊM DÒNG NÀY ĐỂ KIỂM TRA:
-        // Nếu kind bị null, chúng ta ép nó thành "multiple_choice" để hiện thử giao diện
         String kind = currentQuiz.getKind();
         if (kind == null) {
             Log.e("QuizApp", "CẢNH BÁO: Kind bị null trên Firebase! Đang hiện tạm Multiple Choice để test.");
@@ -137,28 +135,19 @@ public class Quiz extends AppCompatActivity {
     }
 
     private void updateProgressBar() {
-        // Để cho đẹp, lấy chiều rộng của màn hình làm gốc, sau đó chia %
         if (viewProgressBar != null) {
-            int screenWidth = getResources().getDisplayMetrics().widthPixels - 100; // Trừ bớt padding
+            int screenWidth = getResources().getDisplayMetrics().widthPixels - 100;
             int progressWidth = (int) (((float) currentQuestionIndex / quizIds.size()) * screenWidth);
 
             ViewGroup.LayoutParams params = viewProgressBar.getLayoutParams();
-            // Nếu câu số 0 thì set width nhỏ xíu, nếu không sẽ bằng progressWidth
             params.width = (progressWidth <= 0) ? 20 : progressWidth;
             viewProgressBar.setLayoutParams(params);
         }
     }
 
-    // ==========================================
-    // CÁC HÀM CUNG CẤP CHO FRAGMENT SỬ DỤNG
-    // ==========================================
-
-    // 1. Fragment gọi hàm này để xin dữ liệu câu hỏi hiện tại
     public QuizModel getCurrentQuiz() {
         return quizList.get(currentQuestionIndex);
     }
-
-    // 2. Fragment gọi hàm này khi người dùng bấm nút "Kiểm tra"
     public void submitAnswer(boolean isCorrect) {
         if (isCorrect) {
             correctAnswers++;
@@ -167,16 +156,12 @@ public class Quiz extends AppCompatActivity {
             Toast.makeText(this, "Sai rồi! Cố gắng nhé", Toast.LENGTH_SHORT).show();
         }
 
-        // Chờ 1 giây cho người dùng đọc thông báo rồi tự chuyển câu
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             currentQuestionIndex++;
             displayQuestion();
         }, 1000);
     }
 
-    // ==========================================
-    // HÀM CHẤM ĐIỂM CUỐI CÙNG
-    // ==========================================
     private void finishQuizAndSaveProgress() {
         double percentage = ((double) correctAnswers / quizList.size()) * 100;
 

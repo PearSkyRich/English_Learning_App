@@ -52,26 +52,23 @@ public class PathInfo extends AppCompatActivity {
         if (courseImage != null && !courseImage.isEmpty()) {
             Glide.with(this)
                     .load(courseImage)
-                    .placeholder(android.R.drawable.ic_menu_gallery) // Ảnh hiển thị tạm lúc đang tải mạng
+                    .placeholder(android.R.drawable.ic_menu_gallery)
                     .into(ivCourseImage);
         }
-        // Cài đặt RecyclerView danh sách Unit
+
         rvCourseUnits.setLayoutManager(new LinearLayoutManager(this));
         unitList = new ArrayList<>();
         unitAdapter = new UnitDetailAdapter(unitList);
         rvCourseUnits.setAdapter(unitAdapter);
 
-        // Lấy danh sách bài học con
         if (courseId != null) {
             fetchUnits(courseId);
         }
     }
 
     private void fetchUnits(String parentCourseId) {
-        // Tìm các Unit mà mảng course_id chứa ID của khóa học hiện tại
         db.collection("Units")
                 .whereEqualTo("course_id", parentCourseId)
-                //.orderBy("order", Query.Direction.ASCENDING)
                 .get()
                 .addOnSuccessListener(snapshots -> {
                     unitList.clear();

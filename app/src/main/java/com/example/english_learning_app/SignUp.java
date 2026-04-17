@@ -15,12 +15,12 @@ public class SignUp extends AppCompatActivity {
     private EditText edtEmail, edtPassword, edtConfirmPassword;
     private CheckBox cbTerms;
     private LinearLayout btnRegister;
-    private FirebaseAuth mAuth; // Khai báo Firebase Auth
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_account); // Thay bằng tên file XML của bạn
+        setContentView(R.layout.activity_new_account);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -54,10 +54,9 @@ public class SignUp extends AppCompatActivity {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            // Đăng ký thành công -> Chuyển sang màn hình Khảo sát
                             Intent intent = new Intent(SignUp.this, SignUpSurvey.class);
                             startActivity(intent);
-                            finish(); // Đóng màn hình đăng ký
+                            finish();
                         } else {
                             Toast.makeText(this, "Lỗi đăng ký: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }

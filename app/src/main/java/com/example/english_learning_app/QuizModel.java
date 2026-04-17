@@ -13,7 +13,6 @@ public class QuizModel {
 
     public QuizModel() {} // Bắt buộc cho Firebase
 
-    // Các hàm Getter & Setter
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 

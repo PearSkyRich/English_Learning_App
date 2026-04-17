@@ -20,34 +20,28 @@ public class SignUpSurvey extends AppCompatActivity {
     private LinearLayout btnMale, btnFemale, btnStart;
     private TextView tvMale, tvFemale;
 
-    private String selectedGender = "Nam"; // Mặc định là Nam
+    private String selectedGender = "Nam";
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up_survey); // Thay bằng tên file XML của bạn
+        setContentView(R.layout.activity_sign_up_survey);
 
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
-        // Ánh xạ View
         edtName = findViewById(R.id.edt_name);
         edtDob = findViewById(R.id.edt_dob);
         btnMale = findViewById(R.id.btn_gender_male);
         btnFemale = findViewById(R.id.btn_gender_female);
         btnStart = findViewById(R.id.btn_start);
-
-        // Cần tìm TextView bên trong LinearLayout để đổi màu chữ
         tvMale = (TextView) btnMale.getChildAt(0);
         tvFemale = (TextView) btnFemale.getChildAt(0);
 
-        // Xử lý sự kiện chọn Giới tính
         btnMale.setOnClickListener(v -> setGenderSelection("Nam"));
         btnFemale.setOnClickListener(v -> setGenderSelection("Nữ"));
-
-        // Xử lý nút Bắt đầu (Lưu dữ liệu)
         btnStart.setOnClickListener(v -> saveUserDataToFirestore());
     }
 
@@ -80,7 +74,7 @@ public class SignUpSurvey extends AppCompatActivity {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            String uid = currentUser.getUid(); // Lấy ID duy nhất của người dùng vừa đăng ký
+            String uid = currentUser.getUid();
             String email = currentUser.getEmail();
 
             // Tạo Map chứa dữ liệu người dùng
@@ -97,7 +91,6 @@ public class SignUpSurvey extends AppCompatActivity {
                     .set(userMap)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(this, "Thiết lập hồ sơ thành công!", Toast.LENGTH_SHORT).show();
-                        // TODO: Chuyển sang trang chủ (Home)
                         Intent intent = new Intent(SignUpSurvey.this, Home.class);
                         startActivity(intent);
                         finish();

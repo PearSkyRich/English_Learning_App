@@ -5,8 +5,6 @@ public class UnitModel {
     private String course_id;
     private String name;
     private int order;
-
-    // ĐỔI TÊN 2 BIẾN NÀY KHỚP Y HỆT TRÊN FIREBASE
     private String short_description;
     private String image_url;
 
@@ -23,8 +21,6 @@ public class UnitModel {
 
     public int getOrder() { return order; }
     public void setOrder(int order) { this.order = order; }
-
-    // --- GETTER & SETTER MỚI SỬA ---
     public String getShort_description() { return short_description; }
     public void setShort_description(String short_description) { this.short_description = short_description; }
 

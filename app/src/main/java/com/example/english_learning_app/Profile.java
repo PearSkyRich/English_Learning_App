@@ -49,11 +49,9 @@ public class Profile extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
-    // Danh sách lưu trữ dữ liệu thật từ Firebase
     private List<CertificateModel> fullCertList = new ArrayList<>();
     private List<AchievementModel> fullAchieveList = new ArrayList<>();
 
-    // Khai báo Adapter
     private CertificateAdapter certAdapter;
     private AchievementAdapter achieveAdapter;
 
@@ -71,18 +69,15 @@ public class Profile extends AppCompatActivity {
         setupRecyclerViews();
         setupNavigation();
 
-        // Tải dữ liệu người dùng và danh sách từ Firebase
         loadUserData();
         imagePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.GetContent(),
                 uri -> {
                     if (uri != null) {
-                        // Xử lý khi người dùng chọn xong ảnh
                         handleImageSelected(uri);
                     }
                 }
         );
-        // Sự kiện Đăng xuất
         btnLogout.setOnClickListener(v -> {
             mAuth.signOut();
             Intent intent = new Intent(Profile.this, SignIn.class);
@@ -92,8 +87,6 @@ public class Profile extends AppCompatActivity {
         });
 
         btnProfile.setOnClickListener(v -> showProfileBottomSheet());
-
-        // Sự kiện chuyển Tab
         tabProgress.setOnClickListener(v -> selectTab(true));
         tabAchievements.setOnClickListener(v -> selectTab(false));
     }
@@ -114,21 +107,17 @@ public class Profile extends AppCompatActivity {
         navProfile = findViewById(R.id.nav_profile);
         ivAvatar = findViewById(R.id.iv_avatar);
         ivAvatar.setOnClickListener(v -> {
-            // Mở thư viện ảnh để chọn
             imagePickerLauncher.launch("image/*");
         });
     }
 
     private void setupRecyclerViews() {
-        // Thiết lập hướng cuộn cho RecyclerView
         rvCertificates.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvAchievements.setLayoutManager(new LinearLayoutManager(this));
 
-        // Khởi tạo Adapter
         certAdapter = new CertificateAdapter();
         achieveAdapter = new AchievementAdapter();
 
-        // Gán adapter vào view
         rvCertificates.setAdapter(certAdapter);
         rvAchievements.setAdapter(achieveAdapter);
     }
@@ -143,7 +132,7 @@ public class Profile extends AppCompatActivity {
         try {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
 
-            // 1. Nén ảnh cực nhỏ
+            // 1. Nén ảnh
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 150, 150, true);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos); // Chất lượng 70%
@@ -182,11 +171,9 @@ public class Profile extends AppCompatActivity {
                                 Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
                                 ivAvatar.setImageBitmap(decodedBitmap);
                             }
-                            // Lấy mảng ID từ User
                             List<String> myCertIds = (List<String>) doc.get("earned_certificates");
                             List<String> myAchieveIds = (List<String>) doc.get("earned_achievements");
 
-                            // Truy vấn chi tiết từ bảng gốc
                             fetchDetailsFromRootTables(myCertIds, myAchieveIds);
                         }
                     });
@@ -202,7 +189,7 @@ public class Profile extends AppCompatActivity {
                         for (DocumentSnapshot d : snapshots) {
                             fullCertList.add(new CertificateModel(d.getId(), d.getString("Name")));
                         }
-                        selectTab(isProgressTabSelected); // Cập nhật danh sách hiển thị
+                        selectTab(isProgressTabSelected);
                     });
         }
 
@@ -281,8 +268,6 @@ public class Profile extends AppCompatActivity {
                     if (doc.getLong("target_score") != null) {
                         edtTargetScore.setText(String.valueOf(doc.getLong("target_score")));
                     }
-
-                    // Hiển thị trạng thái giới tính ban đầu
                     String gender = doc.getString("gender");
                     if (gender != null) {
                         updateGenderUI(gender, btnMale, btnFemale, tvMale, tvFemale);
@@ -316,7 +301,6 @@ public class Profile extends AppCompatActivity {
                 updates.put("target_score", Long.parseLong(scoreStr));
             }
 
-            // Nếu user nhập mật khẩu mới thì đổi mật khẩu Firebase Auth
             if (!newPassword.isEmpty() && newPassword.length() >= 6) {
                 user.updatePassword(newPassword).addOnSuccessListener(unused ->
                         Toast.makeText(this, "Đã đổi mật khẩu!", Toast.LENGTH_SHORT).show());
@@ -333,13 +317,12 @@ public class Profile extends AppCompatActivity {
     }
     private void updateGenderUI(String gender, LinearLayout btnMale, LinearLayout btnFemale, TextView tvMale, TextView tvFemale) {
         selectedGender = gender;
-        // Reset về màu xám mặc định của bạn (#FAF8F8)
+
         btnMale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FAF8F8")));
         tvMale.setTextColor(Color.parseColor("#504D5D"));
         btnFemale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FAF8F8")));
         tvFemale.setTextColor(Color.parseColor("#504D5D"));
 
-        // Nút được chọn sẽ sáng màu xanh (#55BA5D)
         if (gender.equals("Nam")) {
             btnMale.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#55BA5D")));
             tvMale.setTextColor(Color.WHITE);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ public class Home extends AppCompatActivity {
     private List<CourseModel> courseList;
     private FirebaseFirestore db;
     private ImageView navHome, navTest, navFlashcard, navCategory, navProfile;
+    private TextView viewAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,12 @@ public class Home extends AppCompatActivity {
         navFlashcard = findViewById(R.id.nav_flashcard);
         navCategory = findViewById(R.id.nav_categrory);
         navProfile = findViewById(R.id.nav_profile);
-        
+        viewAll=findViewById(R.id.btn_view_all_courses);
+
+        viewAll.setOnClickListener(v -> {
+            startActivity(new Intent(Home.this, Categories.class));
+            overridePendingTransition(0, 0);
+        });
         // Nút Flashcard
         navFlashcard.setOnClickListener(v -> {
             startActivity(new Intent(Home.this, Collection.class));

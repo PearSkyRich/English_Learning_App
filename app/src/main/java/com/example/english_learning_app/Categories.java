@@ -23,7 +23,7 @@ public class Categories extends AppCompatActivity {
 
     private List<CourseModel> originalCourseList;
     private List<CourseModel> displayCourseList;
-    private List<String> dynamicTabList; // Chứa danh sách các Tag tự động
+    private List<String> dynamicTabList;
 
     private FirebaseFirestore db;
     private EditText edtSearch;

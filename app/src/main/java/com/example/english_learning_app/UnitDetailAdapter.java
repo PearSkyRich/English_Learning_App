@@ -31,9 +31,6 @@ public class UnitDetailAdapter extends RecyclerView.Adapter<UnitDetailAdapter.Ch
         // Hiển thị tên Unit
         holder.tvChildName.setText("Bài " + unit.getOrder() + ": " + unit.getName());
 
-        // =========================================================
-        // ĐÂY LÀ CHÌA KHÓA: BẤM VÀO UNIT -> NHẢY SANG COURSE DETAIL
-        // =========================================================
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), CourseDetails.class);
 
@@ -57,7 +54,6 @@ public class UnitDetailAdapter extends RecyclerView.Adapter<UnitDetailAdapter.Ch
 
         public ChildViewHolder(@NonNull View itemView) {
             super(itemView);
-            // Ánh xạ id khớp với file item_unit_child.xml
             tvChildName = itemView.findViewById(R.id.tv_child_unit_name);
         }
     }

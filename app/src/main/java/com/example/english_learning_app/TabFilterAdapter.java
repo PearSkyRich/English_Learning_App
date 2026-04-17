@@ -38,7 +38,6 @@ public class TabFilterAdapter extends RecyclerView.Adapter<TabFilterAdapter.TabV
         String tagName = tabList.get(position);
         holder.tvTabName.setText(tagName);
 
-        // Đổi màu nếu Tab đang được chọn
         if (selectedPosition == position) {
             holder.layoutBg.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#55BA5D")));
             holder.tvTabName.setTextColor(Color.WHITE);
@@ -47,16 +46,11 @@ public class TabFilterAdapter extends RecyclerView.Adapter<TabFilterAdapter.TabV
             holder.tvTabName.setTextColor(Color.parseColor("#696674"));
         }
 
-        // Bắt sự kiện click
         holder.itemView.setOnClickListener(v -> {
             int previousPos = selectedPosition;
             selectedPosition = holder.getAdapterPosition();
-
-            // Vẽ lại màu cho tab cũ và tab mới
             notifyItemChanged(previousPos);
             notifyItemChanged(selectedPosition);
-
-            // Báo cho Category.java biết là tab nào vừa bị bấm
             listener.onTabClick(tagName);
         });
     }
