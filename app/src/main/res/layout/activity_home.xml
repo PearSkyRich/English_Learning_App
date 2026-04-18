@@ -50,12 +50,6 @@
                     android:paddingVertical="8dp"
                     android:paddingHorizontal="12dp"
                     android:orientation="horizontal">
-                    <com.google.android.material.imageview.ShapeableImageView
-                        app:shapeAppearanceOverlay="@style/cr27"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginEnd="8dp"
-                        android:src="@android:drawable/star_big_on" />
                     <TextView
                         android:id="@+id/tv_main_course_title"
                         android:textColor="#27AE60"
@@ -63,7 +57,7 @@
                         android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="500+ TOEIC" />
+                        android:text="Học Tiếng Anh mỗi ngày" />
                 </LinearLayout>
 
                 <View
@@ -71,111 +65,40 @@
                     android:layout_height="0dp"
                     android:layout_weight="1" />
 
-                <ImageView
-                    android:id="@+id/iv_notifications"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:layout_marginEnd="9dp"
-                    android:src="@android:drawable/star_big_on" />
-                <ImageView
-                    android:id="@+id/iv_user_avatar"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:src="@android:drawable/star_big_on" />
             </LinearLayout>
         </LinearLayout>
+        <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp">
 
-        <LinearLayout
-            android:id="@+id/card_featured_lesson"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/cr16"
-            android:backgroundTint="#BFFFFF"
-            android:padding="20dp"
-            android:layout_marginBottom="24dp"
-            android:layout_marginHorizontal="24dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/iv_banner_ads"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
-                <ImageView
-                    android:id="@+id/iv_featured_icon"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_marginEnd="12dp"
-                    android:src="@android:drawable/star_big_on" />
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/tv_featured_title"
-                        android:textColor="#252525"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="6dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Vị trí danh từ" />
-                    <TextView
-                        android:id="@+id/tv_featured_details"
-                        android:textColor="#8C7878"
-                        android:textSize="12sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Lý thuyết • 9 câu hỏi" />
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/home_cr16lr270346af7131785" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="20dp"
-                android:background="#D1D1D1" />
+                android:layout_height="match_parent"
+                android:background="#40000000" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:textColor="#8C7878"
-                        android:textSize="12sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Khóa học" />
-                    <TextView
-                        android:id="@+id/tv_featured_course_name"
-                        android:textColor="#252525"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Danh từ" />
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/tv_featured_progress"
-                    android:textColor="#00BD4F"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/cr100"
-                    android:paddingVertical="8dp"
-                    android:paddingHorizontal="16dp"
-                    tools:text="1/12" />
-            </LinearLayout>
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:padding="16dp">
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -203,7 +126,7 @@
                         android:layout_marginBottom="12dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bài đánh giá năng lực" />
+                        android:text="Bài đánh giá năng lực bản thân ngay" />
                     <TextView
                         android:id="@+id/btn_take_test"
                         android:textColor="#FFFFFF"
@@ -217,10 +140,7 @@
                         android:text="Test" />
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@android:drawable/star_big_on" />
+
             </LinearLayout>
         </RelativeLayout>
 
